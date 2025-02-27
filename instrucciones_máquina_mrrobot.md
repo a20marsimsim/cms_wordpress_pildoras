@@ -1,3 +1,5 @@
+## Al no conseguir instalar algunas de las versiones vulnerables de WordPress (y sus softwares necesarios; PHP, MySQL, Apache2...), hemos decidido usar una máquina ya existente de un Capture The Flag de TryHackMe
+
 # Instrucciones para acceder a la máquina y modificar WordPress
 
 En este caso, hemos resuelto el CTF de TryHackMe "robot" para poder modificar las configuraciones de WordPress en la máquina. A continuación, te detallamos los pasos a seguir para acceder a la máquina y obtener privilegios elevados.
