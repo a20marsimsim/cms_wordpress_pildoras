@@ -1,5 +1,5 @@
 <?php
-$allowed_types = ['image/jpeg', 'image/png', 'image/gif']; // Tipos de archivo permitidos
+$allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
 $upload_dir = __DIR__ . '/uploads/';
 
 if (isset($_FILES['file'])) {
@@ -8,7 +8,7 @@ if (isset($_FILES['file'])) {
     $file_type = mime_content_type($file_tmp);
 
     if (in_array($file_type, $allowed_types)) {
-        $new_file_name = uniqid() . "_" . $file_name; // Evita colisiones de nombres
+        $new_file_name = uniqid() . "_" . $file_name;
         move_uploaded_file($file_tmp, $upload_dir . $new_file_name);
         echo "Archivo subido correctamente.";
     } else {
