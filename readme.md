@@ -2,7 +2,7 @@
 
 # Instrucciones para acceder a la máquina y modificar WordPress
 
-En este caso, hemos resuelto el CTF de TryHackMe "robot" para poder modificar las configuraciones de WordPress en la máquina. A continuación, te detallamos los pasos a seguir para acceder a la máquina y obtener privilegios elevados.
+En este caso, hemos resuelto el CTF de TryHackMe "mrrobot" para poder modificar las configuraciones de WordPress en la máquina. A continuación, te detallamos los pasos a seguir para acceder a la máquina y obtener privilegios elevados.
 
 ## Pasos para acceder a la máquina:
 
